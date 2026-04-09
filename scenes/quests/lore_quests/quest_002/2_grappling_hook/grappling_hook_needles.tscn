@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://3eynuk3w4m4a" path="res://scenes/quests/lore_quests/quest_002/2_grappling_hook/components/grappling_hook_needles.gd" id="1_omyxq"]
 [ext_resource type="PackedScene" uid="uid://2rbpl811wlv1" path="res://scenes/game_elements/props/background_music/background_music.tscn" id="2_8ufyd"]
+[ext_resource type="AudioStream" uid="uid://bwgtbylflkup2" path="res://scenes/quests/lore_quests/quest_002/components/void_music.tres" id="3_374sg"]
 [ext_resource type="Material" uid="uid://64aeyjitacv3" path="res://scenes/game_elements/props/void/void_chromakey_material.tres" id="3_mg68y"]
-[ext_resource type="AudioStream" uid="uid://bbamdm6wtjjcn" path="res://assets/first_party/music/Threadbare_Bed.ogg" id="3_w164g"]
 [ext_resource type="TileSet" uid="uid://oynx002hv8tl" path="res://tiles/water.tres" id="4_7s6jr"]
 [ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="4_m6xvq"]
 [ext_resource type="TileSet" uid="uid://bjx3gvah0ycl1" path="res://tiles/foam_2.tres" id="5_7iwrw"]
@@ -19,11 +19,10 @@
 [ext_resource type="PackedScene" uid="uid://cvtty6np3dcv4" path="res://scenes/game_elements/props/all_hooked/all_hooked.tscn" id="10_e0lfj"]
 [ext_resource type="TileSet" uid="uid://do0ffypatd77h" path="res://tiles/bridges.tres" id="10_qsqmk"]
 [ext_resource type="PackedScene" uid="uid://evb46lm6ssu2" path="res://scenes/game_elements/props/hookable_pin/hookable_pin.tscn" id="12_qsqmk"]
-[ext_resource type="PackedScene" uid="uid://4u7dloafx55f" path="res://scenes/game_elements/props/teleporter/teleporter/teleporter.tscn" id="13_p8sis"]
 [ext_resource type="PackedScene" uid="uid://cfcgrfvtn04yp" path="res://scenes/ui_elements/hud/hud.tscn" id="14_bxmjx"]
 [ext_resource type="PackedScene" uid="uid://covsdqqsd6rsy" path="res://scenes/game_elements/props/sign/sign.tscn" id="14_omyxq"]
 [ext_resource type="Script" uid="uid://dagrhfrj0f33i" path="res://scenes/game_logic/camera_behaviors/frame_camera_behavior.gd" id="15_dwcg4"]
-[ext_resource type="Script" uid="uid://hqdquinbimce" path="res://scenes/game_elements/props/teleporter/teleporter/components/teleporter.gd" id="15_mg68y"]
+[ext_resource type="Script" uid="uid://hqdquinbimce" path="res://scenes/game_elements/props/teleporter/teleporter.gd" id="15_mg68y"]
 [ext_resource type="PackedScene" uid="uid://7873qa54birk" path="res://scenes/game_elements/props/tree/tree.tscn" id="20_ocgpu"]
 [ext_resource type="SpriteFrames" uid="uid://2ek86nvw6y28" path="res://scenes/game_elements/props/tree/components/tree_spriteframes_yellow.tres" id="21_qsqmk"]
 [ext_resource type="PackedScene" uid="uid://v3usqiwy5wpr" path="res://scenes/game_elements/props/decoration/rock/rock.tscn" id="23_p8sis"]
@@ -40,7 +39,8 @@ size = Vector2(64, 128)
 script = ExtResource("1_omyxq")
 
 [node name="BackgroundMusic" parent="." unique_id=339196205 instance=ExtResource("2_8ufyd")]
-stream = ExtResource("3_w164g")
+stream = ExtResource("3_374sg")
+clip = &"Creep Loop"
 
 [node name="TileMapLayers" type="Node2D" parent="." unique_id=1176626520]
 
@@ -86,7 +86,6 @@ unique_name_in_owner = true
 position = Vector2(232, 462)
 scale = Vector2(1.03448, 1)
 player_name = "Storyweaver"
-mode = 2
 sprite_frames = ExtResource("5_dwcg4")
 
 [node name="Camera2D" type="Camera2D" parent="OnTheGround/Player" unique_id=1852627393]
@@ -383,8 +382,10 @@ sprite_frames = ExtResource("25_374sg")
 position = Vector2(1429, 923)
 sprite_frames = ExtResource("25_374sg")
 
-[node name="TeleporterNext" parent="." unique_id=1852093842 instance=ExtResource("13_p8sis")]
+[node name="TeleporterNext" type="Area2D" parent="." unique_id=1852093842]
 position = Vector2(1635, 282)
+collision_layer = 4
+script = ExtResource("15_mg68y")
 next_scene = "uid://bk8rjvfmm20b7"
 enter_transition = 4
 exit_transition = 5

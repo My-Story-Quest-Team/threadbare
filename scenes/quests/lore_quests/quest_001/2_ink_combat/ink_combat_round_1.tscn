@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="3_v7ikp"]
 [ext_resource type="PackedScene" uid="uid://lgu7aeqa7o3r" path="res://scenes/game_elements/props/door/door.tscn" id="5_bxnsu"]
 [ext_resource type="PackedScene" uid="uid://b82nsrh332syj" path="res://scenes/game_elements/characters/enemies/throwing_enemy/throwing_enemy.tscn" id="5_h0i4r"]
-[ext_resource type="Script" uid="uid://hqdquinbimce" path="res://scenes/game_elements/props/teleporter/teleporter/components/teleporter.gd" id="5_lmnu5"]
+[ext_resource type="Script" uid="uid://hqdquinbimce" path="res://scenes/game_elements/props/teleporter/teleporter.gd" id="5_lmnu5"]
 [ext_resource type="PackedScene" uid="uid://crqjcicx0vdu" path="res://scenes/game_elements/props/decoration/bush/bush.tscn" id="5_nlryc"]
 [ext_resource type="TileSet" uid="uid://oynx002hv8tl" path="res://tiles/water.tres" id="6_3npeg"]
 [ext_resource type="PackedScene" uid="uid://y8ha8abfyap2" path="res://scenes/game_elements/props/filling_barrel/filling_barrel.tscn" id="6_v7ikp"]
@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://7873qa54birk" path="res://scenes/game_elements/props/tree/tree.tscn" id="13_hlahk"]
 [ext_resource type="AudioStream" uid="uid://bbnj2fog3rdy8" path="res://assets/first_party/sounds/throwing_enemy/Spray.wav" id="14_7ekah"]
 [ext_resource type="PackedScene" uid="uid://c5jedlvvnnbi0" path="res://scenes/game_elements/props/projectile/ink_blob_projectile.tscn" id="16_k65js"]
-[ext_resource type="PackedScene" uid="uid://dkx3dgc1br3b4" path="res://scenes/ui_elements/input_hints/repel_hint.tscn" id="22_8me22"]
+[ext_resource type="PackedScene" uid="uid://dmevaymmt6wco" path="res://scenes/game_elements/props/powerup/powerup.tscn" id="26_a4lwd"]
 
 [sub_resource type="Animation" id="Animation_nlryc"]
 resource_name = "goal_completed"
@@ -159,7 +159,6 @@ shape = SubResource("RectangleShape2D_lmnu5")
 [node name="Player" parent="OnTheGround" unique_id=1834864183 instance=ExtResource("3_v7ikp")]
 position = Vector2(28, 487)
 player_name = "StoryWeaver"
-mode = 1
 sprite_frames = ExtResource("10_hlahk")
 
 [node name="Door Enter" parent="OnTheGround" unique_id=1247291697 instance=ExtResource("5_bxnsu")]
@@ -210,18 +209,11 @@ scale = Vector2(1.00063, 0.911434)
 position = Vector2(674, 32)
 scale = Vector2(0.95, 0.95)
 
+[node name="RepelPowerup" parent="OnTheGround" unique_id=1795462717 instance=ExtResource("26_a4lwd")]
+position = Vector2(236, 428)
+highlight_color = Color(0, 0.4392157, 1, 1)
+
 [node name="ScreenOverlay" type="CanvasLayer" parent="." unique_id=127644403]
-
-[node name="InputHints" type="HBoxContainer" parent="ScreenOverlay" unique_id=367368380]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -69.0
-offset_right = 152.0
-grow_vertical = 0
-
-[node name="RepelHint" parent="ScreenOverlay/InputHints" unique_id=1383517200 instance=ExtResource("22_8me22")]
-layout_mode = 2
 
 [node name="HUD" parent="." unique_id=390417147 instance=ExtResource("9_na0be")]
 
@@ -236,3 +228,4 @@ editor_draw_limits = true
 
 [connection signal="cinematic_finished" from="Cinematic" to="FillGameLogic" method="start"]
 [connection signal="goal_reached" from="FillGameLogic" to="FillGameLogic/LevelCompletedAnimation" method="play" binds= ["goal_completed"]]
+[connection signal="collected" from="OnTheGround/RepelPowerup" to="." method="_on_repel_powerup_collected"]
